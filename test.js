@@ -6,8 +6,8 @@ const endpoint = `http://localhost:${port}`
 
 const server = require('./server')
 const studentData = {
-  id: 1,
-  propertyName: 1
+  id: 'rn02',
+  propertyName: 'test/result'
 }
 
 tape('health', async function (t) {
@@ -19,17 +19,16 @@ tape('health', async function (t) {
   })
 })
 tape('put', async function (t) {
-  const url = `${endpoint}/${studentData.id}/${studentData.propertyName}`
-    , opts = {
-  }
-    , data = {
-  }
-    , fn   = function (err, body) {
-    if (err) t.error(err)
-    t.ok(body.success, 'Property successfully saved')
-    t.end()
-  }
-
+  const url = `${endpoint}/${studentData.id}/${studentData.propertyName}`,
+    opts = {
+      headers: { 'content-type': 'application/x-www-form-urlencoded' }
+    },
+    data = { 'score': '98' },
+    fn = function (err, body) {
+      if (err) t.error(err)
+      t.ok(body.success, 'Property successfully saved')
+      t.end()
+    }
   jsonist.put(url, data, opts, fn)
 })
 
